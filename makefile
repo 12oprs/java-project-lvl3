@@ -32,7 +32,7 @@ lint:
 build-run: build run
 
 list:
-	@grep '^[^#[:space:]].*:' Makefile
+	@grep '^[^#[:space:]].*:' makefile
 
  .PHONY: build
 
