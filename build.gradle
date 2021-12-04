@@ -1,0 +1,29 @@
+plugins {
+    id 'application' 
+}
+
+compileJava {
+    options.release = 15
+}
+
+repositories {
+    mavenCentral() 
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2' 
+
+    implementation 'com.google.guava:guava:30.1.1-jre' 
+}
+
+application {
+    mainClass = 'hexlet.code.App' 
+}
+
+tasks.named('test') {
+    useJUnitPlatform() 
+}
+
+group = 'hexlet.code'
+version = '1.0-SNAPSHOT'
+
