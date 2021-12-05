@@ -13,6 +13,7 @@ class AppTest {
 
     @Test
     @DisplayName("Test StringSchema")
+    @SuppressWarnings("checkstyle:magicnumber")
     void stringSchemaTest() {
 
         Validator v = new Validator();
@@ -34,6 +35,7 @@ class AppTest {
 
     @Test
     @DisplayName("Test NumberSchema")
+    @SuppressWarnings("checkstyle:magicnumber")
     void numberSchemaTest() {
         Validator v = new Validator();
         NumberSchema schema = v.number();
