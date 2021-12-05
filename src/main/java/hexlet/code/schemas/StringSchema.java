@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema {
 
     private int minLength = 0;
     private String sample = null;
@@ -16,8 +16,8 @@ public class StringSchema extends BaseSchema {
         } else {
             return false;
         }
-        
-        if (required) {
+
+        if (super.getRequired()) {
             minLength = 1;
         }
         if (minLength > 0 && string.length() < minLength) {

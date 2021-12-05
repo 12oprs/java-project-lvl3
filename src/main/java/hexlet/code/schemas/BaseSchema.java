@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 abstract class BaseSchema {
 
-    protected boolean required = false;
+    private boolean required = false;
 
     public boolean isValid(final Object o) {
         if (required && o == null) {
@@ -10,9 +10,13 @@ abstract class BaseSchema {
         }
         return true;
     }
-    
+
     public BaseSchema required() {
         required = true;
         return this;
+    }
+
+    public boolean getRequired() {
+        return required;
     }
 }

@@ -11,6 +11,5 @@ class Validator {
 
     public NumberSchema number() {
         return new NumberSchema();
-    }    
-
+    }
 }
