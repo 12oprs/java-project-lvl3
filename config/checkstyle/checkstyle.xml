@@ -96,7 +96,16 @@
     <!--   <property name="fileExtensions" value="java"/> -->
     <!-- </module> -->
 
+    <module name="SuppressWarningsFilter" />    
+    
     <module name="TreeWalker">
+
+    	<module name="SuppressWarningsHolder"/>
+    	<module name="SuppressWarnings">
+      	  <property name="id" value="checkstyle:suppresswarnings"/>
+    	</module> 
+
+	<module name="SuppressWithNearbyCommentFilter"/>
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See https://checkstyle.org/config_javadoc.html -->
