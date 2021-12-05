@@ -1,16 +1,26 @@
 package hexlet.code;
 
-class StringSchema {
+class StringSchema extends BaseSchema {
 
-    private boolean required = false;
-    private int minLength = -1;
+    private int minLength = 0;
     private String sample = null;
 
-    boolean isValid(String string) {
-        if ((required) && (string == null || string.length() == 0)) {
+    boolean isValid(final Object o) {
+        String string = null;
+        if (super.isValid(o)) {
+            if (o instanceof String) {
+                string = (String) o;
+            } else if (o != null) {
+                return false;
+            }
+        } else {
             return false;
         }
-        if ((minLength >= 0) && (string.length() < minLength)) {
+        
+        if (required) {
+            minLength = 1;
+        }
+        if (minLength > 0 && string.length() < minLength) {
             return false;
         }
         if ((sample != null) && (!string.contains(sample))) {
@@ -19,17 +29,12 @@ class StringSchema {
         return true;
     }
 
-    StringSchema required() {
-        required = true;
-        return this;
-    }
-
-    StringSchema minLength(int newMinLength) {
+    StringSchema minLength(final int newMinLength) {
         minLength = newMinLength;
         return this;
     }
 
-    StringSchema contains(String newSample) {
+    StringSchema contains(final String newSample) {
         sample = newSample;
         return this;
     }
