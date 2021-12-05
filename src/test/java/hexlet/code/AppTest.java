@@ -26,6 +26,7 @@ class AppTest {
         assertEquals(true, schema.isValid("hexlet"));
         assertEquals(false, schema.isValid(null));
         assertEquals(false, schema.isValid(""));
+        assertEquals(false, schema.isValid(5));
 
         assertEquals(true, schema.contains("what").isValid("what does the fox say"));
         assertEquals(false, schema.contains("whatthe").isValid("what does the fox say"));
