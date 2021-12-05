@@ -2,11 +2,11 @@ package hexlet.code;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// import hexlet.code.Validator;
-// import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-// import org.junit.jupiter.api.BeforeAll;
+
+import hexlet.code.schemas.NumberSchema;
+import hexlet.code.schemas.StringSchema;
 
 class AppTest {
 

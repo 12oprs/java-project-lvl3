@@ -1,13 +1,13 @@
-package hexlet.code;
+package hexlet.code.schemas;
 
 import java.util.Map;
 
-class NumberSchema extends BaseSchema {
+public class NumberSchema extends BaseSchema {
 
     private boolean positive = false;
     private Map<String, Integer> range = null;
 
-    boolean isValid(final Object o) {
+    public boolean isValid(final Object o) {
         Integer number = null;
         if (super.isValid(o)) {
             if (o instanceof Integer) {
@@ -27,12 +27,12 @@ class NumberSchema extends BaseSchema {
         return true;
     }
 
-    NumberSchema positive() {
+    public NumberSchema positive() {
         positive = true;
         return this;
     }
 
-    NumberSchema range(final int min, final int max) {
+    public NumberSchema range(final int min, final int max) {
         range = Map.of(
             "min", min,
             "max", max

@@ -1,11 +1,11 @@
-package hexlet.code;
+package hexlet.code.schemas;
 
-class StringSchema extends BaseSchema {
+public class StringSchema extends BaseSchema {
 
     private int minLength = 0;
     private String sample = null;
 
-    boolean isValid(final Object o) {
+    public boolean isValid(final Object o) {
         String string = null;
         if (super.isValid(o)) {
             if (o instanceof String) {
@@ -29,12 +29,12 @@ class StringSchema extends BaseSchema {
         return true;
     }
 
-    StringSchema minLength(final int newMinLength) {
+    public StringSchema minLength(final int newMinLength) {
         minLength = newMinLength;
         return this;
     }
 
-    StringSchema contains(final String newSample) {
+    public StringSchema contains(final String newSample) {
         sample = newSample;
         return this;
     }
