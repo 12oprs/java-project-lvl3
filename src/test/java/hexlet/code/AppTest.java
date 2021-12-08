@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
 import hexlet.code.schemas.MapSchema;
+import hexlet.code.schemas.BaseSchema;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -96,5 +97,42 @@ class AppTest {
         assertEquals(false, schema.isValid(data));
         data.put("key2", "value2");
         assertEquals(true, schema.isValid(data));
+    }
+
+    @Test
+    @DisplayName("Test MapSchema.shape()")
+    @SuppressWarnings("checkstyle:magicnumber")
+    void mapSchemaShapeTest() {
+        MapSchema schema = v.map();
+
+// shape - позволяет описывать валидацию для значений объекта Map по ключам.
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("name", v.string().required());
+        schemas.put("age", v.number().positive());
+        schema.shape(schemas);
+
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("name", "Kolya");
+        human1.put("age", 100);
+        assertEquals(true, schema.isValid(human1));
+
+        Map<String, Object> human2 = new HashMap<>();
+        human2.put("name", "Maya");
+        human2.put("age", null);
+        assertEquals(true, schema.isValid(human2));
+
+        Map<String, Object> human3 = new HashMap<>();
+        human3.put("name", "");
+        human3.put("age", null);
+        assertEquals(false, schema.isValid(human3));
+
+        Map<String, Object> human4 = new HashMap<>();
+        human4.put("name", "Valya");
+        human4.put("age", -5);
+        assertEquals(false, schema.isValid(human4));
+
+        schema.shape();
+        assertEquals(true, schema.isValid(human4));
+
     }
 }
