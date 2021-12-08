@@ -1,6 +1,7 @@
 package hexlet.code.schemas;
 
-abstract class BaseSchema {
+@SuppressWarnings("checkstyle:DesignForExtension")
+public abstract class BaseSchema {
 
     private boolean required = false;
 
@@ -16,7 +17,7 @@ abstract class BaseSchema {
         return this;
     }
 
-    public boolean getRequired() {
+    protected boolean getRequired() {
         return required;
     }
 }

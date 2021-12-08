@@ -7,12 +7,15 @@ public final class NumberSchema extends BaseSchema {
     private boolean positive = false;
     private Map<String, Integer> range = null;
 
+    @Override
     public boolean isValid(final Object o) {
         Integer number = null;
         if (super.isValid(o)) {
-            if (o instanceof Integer) {
+            if (o == null) {
+                return true;
+            } else if (o instanceof Integer) {
                 number = (Integer) o;
-            } else if (o != null) {
+            } else {
                 return false;
             }
         } else {
