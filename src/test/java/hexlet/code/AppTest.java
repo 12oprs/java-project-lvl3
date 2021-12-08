@@ -23,13 +23,17 @@ class AppTest {
 
     @Test
     @DisplayName("Test StringSchema")
+    @SuppressWarnings("checkstyle:magicnumber")
     void stringSchemaTest() {
 
         StringSchema schema = v.string();
 
         assertEquals(true, schema.isValid(""));
         assertEquals(true, schema.isValid(null));
+        assertEquals(true, schema.contains("what").isValid(null));
+        assertEquals(true, schema.minLength(5).isValid(null));
 
+        schema = v.string();
         schema.required();
         assertEquals(true, schema.isValid("what does the fox say"));
         assertEquals(true, schema.isValid("hexlet"));
@@ -39,6 +43,9 @@ class AppTest {
 
         assertEquals(true, schema.contains("what").isValid("what does the fox say"));
         assertEquals(false, schema.contains("whatthe").isValid("what does the fox say"));
+        assertEquals(true, schema.contains().isValid("what does the fox say"));
+        assertEquals(true, schema.minLength(5).isValid("what does the fox say"));
+        assertEquals(false, schema.minLength(10).isValid("what"));
     }
 
     @Test
@@ -48,7 +55,11 @@ class AppTest {
         NumberSchema schema = v.number();
 
         assertEquals(true, schema.isValid(null));
+        assertEquals(true, schema.isValid(5));
+        assertEquals(true, schema.positive().isValid(null));
+        assertEquals(true, schema.range(5, 10).isValid(null));
 
+        schema = v.number();
         schema.required();
         assertEquals(false, schema.isValid(null));
         assertEquals(true, schema.isValid(10));
@@ -70,7 +81,10 @@ class AppTest {
         MapSchema schema = v.map();
 
         assertEquals(true, schema.isValid(null));
+        assertEquals(true, schema.sizeof(2).isValid(null));
+        assertEquals(true, schema.sizeof(2).isValid(Map.of("key1", "value1")));
 
+        schema = v.map();
         schema.required();
         assertEquals(false, schema.isValid(null));
         assertEquals(true, schema.isValid(new HashMap()));
