@@ -47,6 +47,8 @@ class AppTest {
         assertEquals(true, schema.contains().isValid("what does the fox say"));
         assertEquals(true, schema.minLength(5).isValid("what does the fox say"));
         assertEquals(false, schema.minLength(10).isValid("what"));
+
+        schema = v.string().required().contains("ya"); //check required() with generics
     }
 
     @Test
@@ -74,6 +76,8 @@ class AppTest {
         assertEquals(true, schema.isValid(10));
         assertEquals(false, schema.isValid(4));
         assertEquals(false, schema.isValid(11));
+
+        schema = v.number().required().positive(); //check required() with generics
     }
 
     @Test
@@ -97,6 +101,8 @@ class AppTest {
         assertEquals(false, schema.isValid(data));
         data.put("key2", "value2");
         assertEquals(true, schema.isValid(data));
+
+        schema = v.map().required().sizeof(0); //check required() with generics
     }
 
     @Test
