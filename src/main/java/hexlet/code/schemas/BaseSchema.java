@@ -17,9 +17,9 @@ public abstract class BaseSchema {
         return true;
     }
 
-    public final BaseSchema required() {
+    public <T extends BaseSchema> T required() {
         required = true;
-        return this;
+        return (T) this;
     }
 
     protected  final boolean getRequired() {

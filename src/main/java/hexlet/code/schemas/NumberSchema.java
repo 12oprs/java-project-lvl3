@@ -43,4 +43,8 @@ public final class NumberSchema extends BaseSchema {
         return this;
     }
 
+    public NumberSchema required() {
+        return super.<NumberSchema>required();
+    }
+
 }

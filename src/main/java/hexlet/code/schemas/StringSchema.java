@@ -47,4 +47,8 @@ public final class StringSchema extends BaseSchema {
         return this;
     }
 
+    public StringSchema required() {
+        return super.<StringSchema>required();
+    }
+
 }

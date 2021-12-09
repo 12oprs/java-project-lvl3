@@ -53,4 +53,8 @@ public final class MapSchema extends BaseSchema {
         shape = null;
         return this;
     }
+
+    public MapSchema required() {
+        return super.<MapSchema>required();
+    }
 }
