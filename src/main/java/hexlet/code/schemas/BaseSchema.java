@@ -7,6 +7,7 @@ public abstract class BaseSchema {
     /**
    * This implementation should be improved.
    * If you have some ideas, give me advice please
+   * I tried to do it with generics but lost
    * @return return true if value passed test
    * @param o - object for verification
    */
@@ -17,12 +18,17 @@ public abstract class BaseSchema {
         return true;
     }
 
+    /**
+   * This implementation appeared because "v.number().required().positive()" didn't work.
+   * @return return *Schema.class
+   * @param <T> child-class for return
+   */
     public <T extends BaseSchema> T required() {
         required = true;
         return (T) this;
     }
 
-    protected  final boolean getRequired() {
+    protected final boolean getRequired() {
         return required;
     }
 }
