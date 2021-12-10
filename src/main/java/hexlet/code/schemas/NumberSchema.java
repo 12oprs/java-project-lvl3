@@ -21,7 +21,7 @@ public final class NumberSchema extends BaseSchema {
         } else {
             return false;
         }
-        if (positive && number < 0) {
+        if (positive && number <= 0) {
             return false;
         }
         if (range != null && (number < range.get("min") || number > range.get("max"))) {
