@@ -59,6 +59,7 @@ class AppTest {
 
         assertEquals(true, schema.isValid(null));
         assertEquals(true, schema.isValid(5));
+        assertEquals(false, schema.isValid("5"));
         assertEquals(true, schema.positive().isValid(null));
         assertEquals(true, schema.range(5, 10).isValid(null));
 
@@ -69,6 +70,7 @@ class AppTest {
         assertEquals(false, schema.isValid("5"));
 
         assertEquals(true, schema.positive().isValid(10));
+        assertEquals(false, schema.isValid(0));
         assertEquals(false, schema.isValid(-10));
 
         schema.range(5, 10);
