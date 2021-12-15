@@ -31,6 +31,7 @@ class AppTest {
 
         assertEquals(true, schema.isValid(""));
         assertEquals(true, schema.isValid(null));
+        assertEquals(false, schema.isValid(5));
         assertEquals(true, schema.contains("what").isValid(null));
         assertEquals(true, schema.minLength(5).isValid(null));
 
@@ -44,7 +45,7 @@ class AppTest {
 
         assertEquals(true, schema.contains("what").isValid("what does the fox say"));
         assertEquals(false, schema.contains("whatthe").isValid("what does the fox say"));
-        assertEquals(true, schema.contains().isValid("what does the fox say"));
+        schema = v.string().required();
         assertEquals(true, schema.minLength(5).isValid("what does the fox say"));
         assertEquals(false, schema.minLength(10).isValid("what"));
 
@@ -59,6 +60,7 @@ class AppTest {
 
         assertEquals(true, schema.isValid(null));
         assertEquals(true, schema.isValid(5));
+        assertEquals(true, schema.isValid(-5));
         assertEquals(false, schema.isValid("5"));
         assertEquals(true, schema.positive().isValid(null));
         assertEquals(true, schema.range(5, 10).isValid(null));
@@ -89,7 +91,7 @@ class AppTest {
 
         assertEquals(true, schema.isValid(null));
         assertEquals(true, schema.sizeof(2).isValid(null));
-        assertEquals(true, schema.sizeof(2).isValid(Map.of("key1", "value1")));
+        assertEquals(false, schema.sizeof(2).isValid(Map.of("key1", "value1")));
 
         schema = v.map();
         schema.required();
