@@ -1,19 +1,31 @@
 package hexlet.code.schemas;
 
-public abstract class BaseSchema {
+import java.util.List;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
+public abstract class BaseSchema<T> {
 
     private boolean required = false;
 
+    private List<Predicate<T>> conditions = new ArrayList<>();
+
     /**
-   * This implementation should be improved.
-   * If you have some ideas, give me advice please
-   * I tried to do it with generics but lost
+   * This implementation checks accordance to conditions for input param.
    * @return return true if value passed test
    * @param o - object for verification
    */
-    public boolean isValid(final Object o) {
-        if (required && o == null) {
-            return false;
+    protected boolean isValid(final Object o) {
+        if (o == null) {
+            if (required) {
+                return false;
+            }
+        } else {
+            for (Predicate<T> cond : conditions) {
+                if (cond.test((T) o)) {
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -21,14 +33,14 @@ public abstract class BaseSchema {
     /**
    * This implementation appeared because "v.number().required().positive()" didn't work.
    * @return return *Schema.class
-   * @param <T> child-class for return
+   * @param <T2> child-class for return
    */
-    public <T extends BaseSchema> T required() {
+    protected <T2 extends BaseSchema> T2 required() {
         required = true;
-        return (T) this;
+        return (T2) this;
     }
 
-    protected final boolean getRequired() {
-        return required;
+    protected final void addCondition(Predicate<T> condition) {
+        conditions.add(condition);
     }
 }

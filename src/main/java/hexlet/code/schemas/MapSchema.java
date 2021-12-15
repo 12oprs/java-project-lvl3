@@ -2,37 +2,26 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public final class MapSchema extends BaseSchema {
+public final class MapSchema extends BaseSchema<Map<Object, Object>> {
 
-    private int size = -1;
     private Map<String, BaseSchema> shape = null;
 
-    @Override
     public boolean isValid(final Object o) {
-        Map<Object, Object> map = null;
-        if (super.isValid(o)) {
-            if (o == null) {
-                return true;
-            } else if (o instanceof Map) {
-                map = (Map<Object, Object>) o;
+        if (o instanceof Map || o == null) {
+            if (shape != null) {
+                return checkShape((Map) o);
             } else {
-                return false;
+                return super.isValid(o);
             }
-        } else {
-            return false;
         }
-        if (super.getRequired() && size >= 0 && map.size() < size) {
-            return false;
-        }
-        if (shape != null && !checkShape(map)) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     private boolean checkShape(Map<Object, Object> map) {
         for (Map.Entry<String, BaseSchema> entry : shape.entrySet()) {
-            if (!entry.getValue().isValid(map.get(entry.getKey()))) {
+            BaseSchema schema = entry.getValue();
+            Object value = map.get(entry.getKey());
+            if (!schema.isValid(value)) {
                 return false;
             }
         }
@@ -40,7 +29,7 @@ public final class MapSchema extends BaseSchema {
     }
 
     public MapSchema sizeof(final int newSize) {
-        size = newSize;
+        addCondition(map -> map.size() != newSize);
         return this;
     }
 
