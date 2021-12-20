@@ -16,7 +16,7 @@ Lib allows to create models for next types of input params: Integer, String, Map
 Also it can create complex models based on Map.  
 
 ### Usage
-```
+```Java
 StringSchema schema1 = new Validator().string();         //create schema for strings  
 schema1.required();         //add condition (x -> x != null && x != "")  
 schema1.contains("sample");         //add condition  
@@ -24,21 +24,21 @@ schema1.minLength(10);         //add condition
 schema1.isValid("string sample");         //check param for compliance   
 ```
 **You also do it in chain style:**
-```
+```Java
 schema1.required().contains("sample").minLength(10).isValid("string sample");         //true  
 ```
-```
+```Java
 NumberSchema schema2 = new Validator().number();         //create schema for integers  
 schema2.isValid(null);         //true  
 schema2.required().isValid(null);         //false  
 schema2.positive().isValid(10);         //true
 ```
-```
+```Java
 MapSchema schema3 = new Validator().map();         //create schema for maps  
 schema3.sizeof(2).isValid(Map.of("dog", "Rex", "cat", "Barsik"));         //true  
 ```
 **Creating model for checking values in Map:**  
-```
+```Java
 schema1 = new Validator().string().required();  
 schema2 = new Validator().number().positive();  
 schema3 = new Validator.map().shape(Map.of("name", schema1, "age", schema2);   
