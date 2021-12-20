@@ -141,7 +141,10 @@ class AppTest {
         human4.put("age", -5);
         assertEquals(false, schema.isValid(human4));
 
-        schema.shape();
+        assertEquals(true, schema.sizeof(2).isValid(human2));
+        assertEquals(false, schema.sizeof(1).isValid(human2));
+
+        schema = v.map().shape(null);
         assertEquals(true, schema.isValid(human4));
 
     }
