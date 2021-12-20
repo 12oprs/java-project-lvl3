@@ -10,17 +10,17 @@ public final class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema minLength(final int newMinLength) {
-        addCondition(string -> string.length() < newMinLength);
+        addCondition(string -> string == null || string.length() >= newMinLength);
         return this;
     }
 
     public StringSchema contains(final String newSample) {
-        addCondition(string -> !string.contains(newSample));
+        addCondition(string -> string == null || string.contains(newSample));
         return this;
     }
 
     public StringSchema required() {
-        addCondition(string -> string.length() == 0);
+        addCondition(string -> string == null || string.length() > 0);
         return super.<StringSchema>required();
     }
 

@@ -6,8 +6,6 @@ import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
 
-    private boolean required = false;
-
     private List<Predicate<T>> conditions = new ArrayList<>();
 
     /**
@@ -16,15 +14,9 @@ public abstract class BaseSchema<T> {
    * @param o - object for verification
    */
     protected boolean isValid(final Object o) {
-        if (o == null) {
-            if (required) {
+        for (Predicate<T> cond : conditions) {
+            if (!cond.test((T) o)) {
                 return false;
-            }
-        } else {
-            for (Predicate<T> cond : conditions) {
-                if (cond.test((T) o)) {
-                    return false;
-                }
             }
         }
         return true;
@@ -36,7 +28,7 @@ public abstract class BaseSchema<T> {
    * @param <T2> child-class for return
    */
     protected <T2 extends BaseSchema> T2 required() {
-        required = true;
+        addCondition(object -> object != null);
         return (T2) this;
     }
 

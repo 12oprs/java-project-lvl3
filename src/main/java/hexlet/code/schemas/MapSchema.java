@@ -4,20 +4,14 @@ import java.util.Map;
 
 public final class MapSchema extends BaseSchema<Map<Object, Object>> {
 
-    private Map<String, BaseSchema> shape = null;
-
     public boolean isValid(final Object o) {
         if (o instanceof Map || o == null) {
-            if (shape != null) {
-                return checkShape((Map) o);
-            } else {
-                return super.isValid(o);
-            }
+            return super.isValid(o);
         }
         return false;
     }
 
-    private boolean checkShape(Map<Object, Object> map) {
+    private boolean checkShape(Map<Object, Object> map, Map<String, BaseSchema> shape) {
         for (Map.Entry<String, BaseSchema> entry : shape.entrySet()) {
             BaseSchema schema = entry.getValue();
             Object value = map.get(entry.getKey());
@@ -29,17 +23,12 @@ public final class MapSchema extends BaseSchema<Map<Object, Object>> {
     }
 
     public MapSchema sizeof(final int newSize) {
-        addCondition(map -> map.size() != newSize);
+        addCondition(map -> map == null || map.size() == newSize);
         return this;
     }
 
     public MapSchema shape(Map<String, BaseSchema> newShape) {
-        shape = newShape;
-        return this;
-    }
-
-    public MapSchema shape() {
-        shape = null;
+        addCondition(map -> map == null || newShape == null || checkShape(map, newShape));
         return this;
     }
 
